@@ -6,13 +6,6 @@ class Solution:
         n = len(matrix)
         for i in range(n // 2):
             for j in range(i, n - i - 1):
-                for pair in [
-                    (i, j),
-                    (j, n - i - 1),
-                    (n - i - 1, n - j - 1),
-                    (n - j - 1, i),
-                ]:
-                    print(pair)
                 temp = matrix[i][j]
                 matrix[i][j] = matrix[n - j - 1][i]
                 matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1]
