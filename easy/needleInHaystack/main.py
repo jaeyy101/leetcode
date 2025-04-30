@@ -18,7 +18,6 @@ class Solution:
                 if needle_len != 0:
                     needle_len = lps[needle_len - 1]
                 else:
-                    lps[i] = 0
                     i += 1
 
         return lps
@@ -55,4 +54,5 @@ class Solution:
 
 
 solution = Solution()
-print(solution.strStr("ababcabcabababd", "ababd"))
+# print(solution.strStr("ababcabcabababd", "ababd"))
+print(solution.computeLPS("aabaabaaa"))

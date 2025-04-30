@@ -1,28 +1,39 @@
 class Solution:
-    def validAnagram(self, s, t):
-        return self.counter(s) == self.counter(t)
+    def isAnagramNaive(self, s: str, t: str) -> bool:
+        n = len(s)
+        if n != len(t):
+            return False
 
-    def counter(self, s):
-        total = 0
-        i = 0
-        length = len(s)
-        while i < length:
-            total += hash(s[i])
-            i += 1
+        s = sorted(s)
+        t = sorted(t)
 
-        return total
+        for i in range(n):
+            if s[i] != t[i]:
+                return False
+
+        return True
+
+    def isAnagram(self, s: str, t: str) -> bool:
+        n = len(s)
+        if n != len(t):
+            return False
+
+        # s_counts = {}
+        # for letter in s:
+        #     s_counts[letter] = s_counts.get(letter, 0) + 1
+        ord_a = ord("a")
+        s_counts = [0] * 26
+        for letter in s:
+            s_counts[ord(letter) - ord_a] += 1
+
+        for i in range(n):
+            index = ord(t[i]) - ord_a
+            if not s_counts[index] > 0:
+                return False
+
+            s_counts[index] -= 1
+
+        return True
 
 
-def main():
-    s = input("Enter first word: ")
-    t = input("Enter second word: ")
-
-    sol = Solution()
-    if sol.validAnagram(s, t):
-        print(f"{t} is an anagram of {s}")
-    else:
-        print(f"{t} is not an anagram of {s}")
-
-
-if __name__ == "__main__":
-    main()
+print(Solution().isAnagram("anagram", "nagaram"))
