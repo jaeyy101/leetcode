@@ -1,3 +1,6 @@
+import bisect
+
+
 class Solution:
     def insert(
         self, intervals: list[list[int]], newInterval: list[int]
@@ -29,5 +32,21 @@ class Solution:
 
         return res
 
+    def insert1(
+        self, intervals: list[list[int]], newInterval: list[int]
+    ) -> list[list[int]]:
+        starts = [interval[0] for interval in intervals]
+        ends = [interval[1] for interval in intervals]
 
-print(Solution().insert([[3, 5], [6, 7], [8, 10], [12, 16]], [11, 20]))
+        left = bisect.bisect_left(ends, newInterval[0])
+        right = bisect.bisect_right(starts, newInterval[1])
+
+        if left < right:
+            new_left = min(newInterval[0], intervals[left][0])
+            new_right = max(newInterval[1], intervals[right - 1][1])
+            newInterval = [new_left, new_right]
+
+        return intervals[:left] + [newInterval] + intervals[right:]
+
+
+print(Solution().insert1([[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]], [4, 7]))
