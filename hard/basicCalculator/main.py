@@ -1,6 +1,6 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        return self.calcRecursively(s, 0)
+        return self.calcRecursively(s, 0)[0]
 
     def calcRecursively(self, s: str, index: int) -> tuple[int, int]:
         stack = []
@@ -51,7 +51,34 @@ class Solution:
                 stack.append(s[index])
                 index += 1
 
-        return stack[0]
+        return stack[0], index
+
+    def calculate1(self, s: str) -> int:
+        stack = []
+        result = 0
+        number = 0
+        sign = 1
+
+        for char in s:
+            if char.isdigit():
+                number = number * 10 + int(char)
+            elif char in "+-":
+                result += sign * number
+                number = 0
+                sign = 1 if char == "+" else -1
+            elif char == "(":
+                stack.append(result)
+                stack.append(sign)
+                result = 0
+                sign = 1
+            elif char == ")":
+                result += sign * number
+                number = 0
+                sign = 1
+                result *= stack.pop(sign)
+                result += stack.pop()
+
+        return result + sign * number
 
 
-print(Solution().calculate("-2+  (-4-2)"))
+print(Solution().calculate1("-2-(4-2)"))
