@@ -75,10 +75,10 @@ class Solution:
                 result += sign * number
                 number = 0
                 sign = 1
-                result *= stack.pop(sign)
+                result *= stack.pop()
                 result += stack.pop()
 
         return result + sign * number
 
 
-print(Solution().calculate1("-2-(4-2)"))
+print(Solution().calculate1("- (3 + (4 + 5))"))
