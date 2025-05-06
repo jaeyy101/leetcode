@@ -2,6 +2,7 @@ class Node:
     def __init__(self, value=None):
         self.val = value
         self.next: Node = None
+        self.random: Node = None
 
 
 class LinkedList:
