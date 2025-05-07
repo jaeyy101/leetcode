@@ -12,6 +12,8 @@ class Solution:
         dummy = Node(0)
         dummy.next = head
 
+        # Setting slow to dummy so we always end up one node before
+        # nth node from end
         slow = dummy
         while fast:
             slow = slow.next
