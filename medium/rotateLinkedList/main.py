@@ -1,6 +1,3 @@
-from utils.linkedlist import Node, LinkedList
-
-
 class Solution:
     def rotateRight(self, head: Node, k: int) -> Node:
         if not head:
@@ -29,14 +26,3 @@ class Solution:
         fast.next = head
 
         return new_head
-
-
-s = LinkedList()
-for i in range(2, 0, -1):
-    s.add(i)
-
-res = Solution().rotateRight(s.head, 1)
-
-while res:
-    print(res.val)
-    res = res.next
