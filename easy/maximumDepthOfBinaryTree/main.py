@@ -1,10 +1,3 @@
-class TreeNode:
-    def __init__(self, value=None):
-        self.val = value
-        self.left: TreeNode = None
-        self.right: TreeNode = None
-
-
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
@@ -32,11 +25,11 @@ class Solution:
         return max_depth
 
 
-head = TreeNode(3)
-head.left = TreeNode(9)
-head.right = TreeNode(20)
-head.right.left = TreeNode(15)
-head.right.right = TreeNode(7)
-head.right.right.left = TreeNode(9)
+# head = TreeNode(3)
+# head.left = TreeNode(9)
+# head.right = TreeNode(20)
+# head.right.left = TreeNode(15)
+# head.right.right = TreeNode(7)
+# head.right.right.left = TreeNode(9)
 
-print(Solution().maxDepth1(head))
+# print(Solution().maxDepth1(head))
