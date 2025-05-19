@@ -78,3 +78,62 @@ class Solution:
             return dfs(nu, 1)
 
         return [query(nu, de) for nu, de in queries]
+
+
+class UnionFind:
+    def __init__(self):
+        self.parent = {}
+        self.weight = {}
+
+    def find(self, x):
+        if x != self.parent[x]:
+            orig_parent = self.parent[x]
+            self.parent[x], w = self.find(orig_parent)
+            self.weight[x] *= w
+        return self.parent[x], self.weight[x]
+
+    def union(self, x, y, value):  # x / y = value
+        if x not in self.parent:
+            self.parent[x] = x
+            self.weight[x] = 1.0
+        if y not in self.parent:
+            self.parent[y] = y
+            self.weight[y] = 1.0
+
+        rootX, weightX = self.find(x)
+        rootY, weightY = self.find(y)
+
+        if rootX != rootY:
+            self.parent[rootX] = rootY
+            # Adjust weight to maintain x / y = value
+            self.weight[rootX] = (value * weightY) / weightX
+
+    def isConnected(self, x, y):
+        if x not in self.parent or y not in self.parent:
+            return -1.0
+        rootX, weightX = self.find(x)
+        rootY, weightY = self.find(y)
+        if rootX != rootY:
+            return -1.0
+        return weightX / weightY
+
+
+class Solulu:
+    def calcEquation(self, equations, values, queries):
+        uf = UnionFind()
+
+        # Step 1: Union all equations
+        for (a, b), val in zip(equations, values):
+            uf.union(a, b, val)
+
+        # Step 2: Process queries
+        result = []
+        for a, b in queries:
+            result.append(uf.isConnected(a, b))
+        return result
+
+
+equations = [["a", "b"], ["b", "c"]]
+values = [2.0, 3.0]
+queries = [["a", "c"], ["b", "a"], ["a", "e"], ["a", "a"], ["x", "x"]]
+print(Solulu().calcEquation(equations, values, queries))
