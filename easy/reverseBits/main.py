@@ -6,6 +6,3 @@ class Solution:
             res = (res << 1) | lsb
             n >>= 1
         return res
-
-
-print(Solution().reverseBits(4294967295))
